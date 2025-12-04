@@ -147,7 +147,7 @@ after_initialize do
     robot
     info
     bars-staggered
-    far-circle-question
+    # far-circle-question
     face-smile
     face-meh
     face-angry
