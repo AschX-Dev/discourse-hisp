@@ -840,7 +840,6 @@ ro:
         claimed: "Revendicat"
         claimed_by: "Revendicat de %{username} · %{relativeDate}"
         reviewed: "Revizuit"
-        reviewed_by: "Revizuit de %{username} · %{relativeDate}"
         view_conversation: "vezi MP"
         note_added: "Notă moderator"
         note_added_by: "Notă moderator de la %{username} · %{relativeDate}"
@@ -2333,6 +2332,7 @@ ro:
         zoom_out: "Micșorează dimensiunea imaginii"
         zoom_in: "Mărește dimensiunea imaginii"
         remove: "Înlătură imagine"
+      image: "imagine"
       image_scale_button: "Scalează imaginea la %{percent}%"
       link_toolbar:
         edit: "Editează legătură"
@@ -3901,6 +3901,8 @@ ro:
         enabled_for_options:
           everyone: "Toată lumea"
           staff: "Doar pentru personal"
+        statuses:
+          experimental: "Experimental"
         impact_roles:
           admins: "Admini"
           moderators: "Moderatori"
@@ -3910,6 +3912,7 @@ ro:
           enabled: "Activate"
           disabled: "Dezactivate"
           impact_type_other: "Altele"
+          status_experimental: "Experimental"
       config:
         about:
           title: "Despre site-ul tău"

@@ -2582,6 +2582,7 @@ zh_TW:
         title: "新增圖片描述"
       image_toolbar:
         alt_text: "新增圖片描述"
+      image: "圖片"
       image_scale_button: "將影像縮放至 %{percent}%"
       delete_image_button: 刪除圖片
       toggle_image_grid: 切換影像網格
@@ -4684,6 +4685,8 @@ zh_TW:
         enabled_for_options:
           everyone: "所有使用者"
           staff: "只限工作人員"
+        statuses:
+          experimental: "實驗性"
         impact_roles:
           moderators: "板主"
           staff: "管理員"
@@ -4692,6 +4695,7 @@ zh_TW:
           enabled: "啟用"
           disabled: "停用"
           impact_type_other: "其他"
+          status_experimental: "實驗性"
       config:
         about:
           title: "關於您的網站"

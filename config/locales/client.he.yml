@@ -997,7 +997,6 @@ he:
         claimed: "נדרש"
         claimed_by: "נדרש על ידי %{username} · %{relativeDate}"
         reviewed: "נבדק"
-        reviewed_by: "נבדק על ידי %{username} · %{relativeDate}"
         view_conversation: "הצגת הודעה פרטית"
         note_added: "הערת פיקוח"
         note_added_by: "הערת פיקוח מאת %{username} · %{relativeDate}"
@@ -3213,6 +3212,7 @@ he:
         remove: "הסרת התמונה"
         add_to_grid: "הוספה לרשת"
         move_outside_grid: "הוצאה מהרשת"
+      image: "תמונה"
       grid_label: "יוצג כרשת"
       image_scale_button: "שינוי קנה המידה של התמונה לכדי %{percent}%"
       delete_image_button: מחיקת תמונה
@@ -5905,7 +5905,7 @@ he:
             many: "הקבוצות %{groupNames}"
             other: "הקבוצות %{groupNames}"
         statuses:
-          pre_alpha: "טרום אלפא"
+          experimental: "ניסיוני"
           alpha: "אלפא"
           beta: "בטא"
           stable: "יציב"
@@ -5927,7 +5927,7 @@ he:
           impact_type_feature: "יכולת"
           impact_type_other: "אחר"
           status_all: "כל המצבים"
-          status_pre_alpha: "טרום אלפא"
+          status_experimental: "ניסיוני"
           status_alpha: "אלפא"
           status_beta: "בטא"
           status_stable: "יציב"

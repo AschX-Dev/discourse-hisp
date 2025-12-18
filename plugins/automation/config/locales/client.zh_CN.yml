@@ -10,6 +10,7 @@ zh_CN:
       logs:
         staff_actions:
           actions:
+            update_automation: 更新自动化
             delete_automation: 删除自动化
     discourse_automation:
       title: 自动化
@@ -64,6 +65,12 @@ zh_CN:
         text:
           label: 文本
       triggerables:
+        post_flag_created:
+          fields:
+            categories:
+              label: 类别
+            tags:
+              label: 标签
         not_found: 找不到用于自动化 `%{automation}` 的触发器 `%{trigger}`，请确保关联插件已安装
         user_badge_granted:
           fields:

@@ -2660,6 +2660,7 @@ fa_IR:
         title: "توضیحات تصویر را اضافه کنید"
       image_toolbar:
         alt_text: "توضیحات تصویر را اضافه کنید"
+      image: "تصویر"
       image_scale_button: "تغییر مقیاس تصویر به %{percent}%"
       delete_image_button: حذف تصویر
       toggle_image_grid: تغییر وضعیت شبکه تصویر
@@ -4884,6 +4885,8 @@ fa_IR:
         enabled_for_options:
           everyone: "همه"
           staff: "فقط به تیم مدیریت"
+        statuses:
+          experimental: "آزمایشی"
         impact_roles:
           admins: "مدیران ارشد"
           moderators: "ناظران"
@@ -4893,6 +4896,7 @@ fa_IR:
           enabled: "فعال شده"
           disabled: "غیرفعال"
           impact_type_other: "دیگر"
+          status_experimental: "آزمایشی"
       config:
         about:
           title: "درباره سایت شما"

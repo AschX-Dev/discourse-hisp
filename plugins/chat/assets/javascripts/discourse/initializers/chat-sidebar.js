@@ -189,11 +189,11 @@ function createChannelLink(BaseCustomSidebarSectionLink, options = {}) {
       return "";
     }
 
-    get contentComponent() {
+    get suffixComponent() {
       return ChatSidebarIndicators;
     }
 
-    get contentComponentArgs() {
+    get suffixArgs() {
       if (this.isDM) {
         return {
           userStatus: this.isOneOnOneDM
@@ -388,76 +388,74 @@ export default {
         CHAT_PANEL
       );
 
-      if (this.siteSettings.star_chat_channels) {
-        api.addSidebarSection(
-          (BaseCustomSidebarSection, BaseCustomSidebarSectionLink) => {
-            const SidebarChatStarredChannelLink = createChannelLink(
-              BaseCustomSidebarSectionLink,
-              {
-                showSuffix: false,
-                enableHoverForPublicChannels: false,
+      api.addSidebarSection(
+        (BaseCustomSidebarSection, BaseCustomSidebarSectionLink) => {
+          const SidebarChatStarredChannelLink = createChannelLink(
+            BaseCustomSidebarSectionLink,
+            {
+              showSuffix: false,
+              enableHoverForPublicChannels: false,
+            }
+          );
+
+          const SidebarChatStarredChannelsSection = class extends BaseCustomSidebarSection {
+            @service currentUser;
+            @service chatStateManager;
+            @service siteSettings;
+
+            constructor() {
+              super(...arguments);
+
+              if (container.isDestroyed) {
+                return;
               }
-            );
+              this.chatService = container.lookup("service:chat");
+              this.chatChannelsManager = container.lookup(
+                "service:chat-channels-manager"
+              );
+            }
 
-            const SidebarChatStarredChannelsSection = class extends BaseCustomSidebarSection {
-              @service currentUser;
-              @service chatStateManager;
-              @service siteSettings;
+            get sectionLinks() {
+              return this.chatChannelsManager.starredChannels.map(
+                (channel) =>
+                  new SidebarChatStarredChannelLink({
+                    channel,
+                    chatService: this.chatService,
+                    currentUser: this.currentUser,
+                    siteSettings: this.siteSettings,
+                    chatStateManager: this.chatStateManager,
+                  })
+              );
+            }
 
-              constructor() {
-                super(...arguments);
+            get name() {
+              return CHAT_STARRED_CHANNELS_SECTION;
+            }
 
-                if (container.isDestroyed) {
-                  return;
-                }
-                this.chatService = container.lookup("service:chat");
-                this.chatChannelsManager = container.lookup(
-                  "service:chat-channels-manager"
-                );
-              }
+            get title() {
+              return i18n("chat.starred_channels");
+            }
 
-              get sectionLinks() {
-                return this.chatChannelsManager.starredChannels.map(
-                  (channel) =>
-                    new SidebarChatStarredChannelLink({
-                      channel,
-                      chatService: this.chatService,
-                      currentUser: this.currentUser,
-                      siteSettings: this.siteSettings,
-                      chatStateManager: this.chatStateManager,
-                    })
-                );
-              }
+            get text() {
+              return i18n("chat.starred_channels");
+            }
 
-              get name() {
-                return CHAT_STARRED_CHANNELS_SECTION;
-              }
+            get links() {
+              return this.sectionLinks;
+            }
 
-              get title() {
-                return i18n("chat.starred_channels");
-              }
+            get displaySection() {
+              return (
+                this.chatStateManager.hasPreloadedChannels &&
+                this.chatChannelsManager.hasStarredChannels
+              );
+            }
+          };
 
-              get text() {
-                return i18n("chat.starred_channels");
-              }
-
-              get links() {
-                return this.sectionLinks;
-              }
-
-              get displaySection() {
-                return (
-                  this.chatStateManager.hasPreloadedChannels &&
-                  this.chatChannelsManager.hasStarredChannels
-                );
-              }
-            };
-
-            return SidebarChatStarredChannelsSection;
-          },
-          CHAT_PANEL
-        );
-      }
+          return SidebarChatStarredChannelsSection;
+        },
+        CHAT_PANEL
+      );
 
       if (this.siteSettings.enable_public_channels) {
         api.addSidebarSection(
@@ -529,11 +527,11 @@ export default {
                 return this.channel.chatable.read_restricted ? "lock" : "";
               }
 
-              get contentComponent() {
+              get suffixComponent() {
                 return ChatSidebarIndicators;
               }
 
-              get contentComponentArgs() {
+              get suffixArgs() {
                 return {
                   unreadCount: this.channel.tracking.unreadCount,
                   // We want to do this so we don't show a blue dot if the user is inside
@@ -575,11 +573,7 @@ export default {
               }
 
               get sectionLinks() {
-                const channels = this.siteSettings.star_chat_channels
-                  ? this.chatChannelsManager.unstarredPublicMessageChannels
-                  : this.chatChannelsManager.publicMessageChannels;
-
-                return channels.map(
+                return this.chatChannelsManager.unstarredPublicMessageChannels.map(
                   (channel) =>
                     new SidebarChatChannelsSectionLink({
                       channel,
@@ -680,11 +674,11 @@ export default {
                 return this.channel.chatable.users.length === 1;
               }
 
-              get contentComponent() {
+              get suffixComponent() {
                 return ChatSidebarIndicators;
               }
 
-              get contentComponentArgs() {
+              get suffixArgs() {
                 return {
                   userStatus: this.oneOnOneMessage
                     ? this.channel.chatable.users[0].get("status")
@@ -828,19 +822,16 @@ export default {
               }
 
               get hideSectionHeader() {
-                const channels = this.siteSettings.star_chat_channels
-                  ? this.chatChannelsManager
-                      .truncatedUnstarredDirectMessageChannels
-                  : this.chatChannelsManager.truncatedDirectMessageChannels;
-
-                return channels.length === 0;
+                return (
+                  this.chatChannelsManager
+                    .truncatedUnstarredDirectMessageChannels.length === 0
+                );
               }
 
               get sectionLinks() {
-                const channels = this.siteSettings.star_chat_channels
-                  ? this.chatChannelsManager
-                      .truncatedUnstarredDirectMessageChannels
-                  : this.chatChannelsManager.truncatedDirectMessageChannels;
+                const channels =
+                  this.chatChannelsManager
+                    .truncatedUnstarredDirectMessageChannels;
 
                 if (channels.length > 0) {
                   return channels.map(
